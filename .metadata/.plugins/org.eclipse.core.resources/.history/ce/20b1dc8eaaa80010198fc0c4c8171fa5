@@ -1,0 +1,5 @@
+spring.application.name=2025_1014_Hello
+
+
+#port 
+server.port=9090

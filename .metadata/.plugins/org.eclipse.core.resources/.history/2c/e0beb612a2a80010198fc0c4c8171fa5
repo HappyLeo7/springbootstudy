@@ -1,0 +1,16 @@
+package com.example.demo.vo;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class PersonVo {
+	String name;
+	int age;
+	String tel;
+	
+	int getAge(int a){
+		return age+a;
+	}
+}

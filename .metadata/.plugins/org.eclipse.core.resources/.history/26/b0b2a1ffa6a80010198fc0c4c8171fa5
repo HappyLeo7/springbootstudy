@@ -1,0 +1,36 @@
+package com.example.demo.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.example.demo.vo.PersonVo;
+
+@Controller
+public class HomeController {
+	
+	@RequestMapping("/")
+	@ResponseBody
+	public String home() {
+		PersonVo p =new PersonVo();
+	    p.setName("홍길동");
+	    
+	    p.setAge(15);
+	    p.setTel("010-1234-1234");
+	    
+	    p.getAge(5); //  ??? 0  
+	    
+	    System.out.println(p.toString());
+	    PersonVo p1 =new PersonVo("이길동",20,"010-1222-1242");
+	    System.out.println(p1.toString());
+	    
+	    PersonVo p2 =new PersonVo("삼길동");
+	    
+	    
+	    if(1==1) {
+	    	return p.toString();
+	    }else {
+	    return "Hello!!";}
+	    
+	}
+}

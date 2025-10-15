@@ -1,0 +1,3 @@
+INDEX VERSION 1.134
+D:\Work\SpingBootStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3626495936.index
+\2025_1014_Hello\src\main\java

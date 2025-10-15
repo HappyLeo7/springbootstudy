@@ -1,0 +1,33 @@
+package com.example.demo.vo;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor   // 기본 생성자를 만들어주는 어노테이션
+@AllArgsConstructor  // 모든변수를 받는 생성자 어노테이션
+//@RequiredArgsConstructor // 필요로 하는 변수를 받는 생성자 어노테이션 (final 변수만 인식함)
+//@Getter @Setter
+@Data // @Getter @Setter @toString 을 만들어줌
+public class PersonVo {
+	String name;
+	int age;
+	String tel;
+	
+	public int getAge(int abc){
+		return age*abc;
+	}
+
+	public PersonVo(String name) {
+		super();
+		this.name = name;
+	}
+
+	
+	
+	
+	
+}
