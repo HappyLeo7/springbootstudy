@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.db2.dao.VisitDao">
+
+ 	
+ 	<!-- 검색조회 -->
+  <select id="selectList" resultType="visit" parameterType="Map">
+	select * from visit
+	<trim prefix="where" prefixOverrides="or">
+		<if test="name!=null">
+			name like concat('%',#{name},'%')
+		</if>
+		<if test="content!=null">
+			or content like concat('%' , #{content} , '%')
+		</if>
+	</trim>  
+	order by idx desc
+  </select>
+
+  <!-- 1개 조회 -->
+	<select id="selectOne" parameterType="int" resultType="visit">
+		select * from visit where idx=#{idx}
+	</select>
+  
+  <!-- 추가하기 -->						    <!-- 타입경로 -->
+  	<insert id="insert" parameterType="visit">
+  		insert into visit values(null
+						  		,#{name}
+						  		,#{content}
+						  		,#{pwd}
+						  		,#{ip}
+						  		,now())
+  	</insert>
+  	<!-- 삭제하기 -->
+  	<delete id="delete" parameterType="int">
+  		delete from visit where idx=#{idx}
+  	</delete>
+
+	
+	<!-- 수정하기 -->
+	<update id="update" parameterType="visit">
+		update visit set name=#{name}
+						,content=#{content}
+						,pwd=#{pwd}
+						,ip=#{ip}
+		where idx=#{idx}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

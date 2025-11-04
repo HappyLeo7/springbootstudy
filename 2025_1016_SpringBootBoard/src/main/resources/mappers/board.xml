@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.db4.dao.BoardDao">
+	
+	<!-- 전체조회  -->
+	<select id="selectList" resultType="BoardVo">
+		select * from board
+			order by b_ref desc, b_step asc
+	</select>
+	
+	<!-- Paing and Condition별 조회  -->
+	<select id="selectConditionList" parameterType="Map" resultType="BoardVo">
+		select 
+			t.*
+			,(select count(*) from comment_tb where b_idx=t.b_idx)as comment_count
+		 from
+			(
+			select
+			*
+			,
+			rank() over(order by b_ref desc, b_step asc) as no
+			from board
+		<trim prefix="where" prefixOverrides="or">
+			<if test="subject!=null">
+				b_subject like concat('%',#{subject},'%')
+			</if>
+			<if test="name!=null">
+				or mem_name like concat('%',#{name},'%')
+			</if>
+			<if test="content!=null">
+				or b_content like concat('%',#{content},'%')
+			</if>
+		</trim>
+			) t
+		where no between #{start} and #{end}
+	</select>
+	
+	
+	<!-- 검색조건별 전체 게시물수 -->
+	<select id="selectRowTotal" parameterType="Map" resultType="int">
+		select 
+			ifnull(count(*),0) 
+		from board
+		
+		<trim prefix="where" prefixOverrides="or">
+			<if test="subject!=null">
+				b_subject like concat('%',#{subject},'%')
+			</if>
+			<if test="name!=null">
+				or mem_name like concat('%',#{name},'%')
+			</if>
+			<if test="content!=null">
+				or b_content like concat('%',#{content},'%')
+			</if>
+		</trim>
+		 
+	</select>
+	
+	
+	
+	<!-- 1개 조회 -->
+	<select id="selectOne" parameterType="int" resultType="BoardVo">
+		select * from board
+			where b_idx=#{b_idx}
+	</select>
+	
+	
+	
+	<!-- board 1개 등록하기 ㅡ 등록시 등록된 b_idx 정보를 vo에 넣어주는 기능 -->
+	<insert id="insert" parameterType="BoardVo" 
+						useGeneratedKeys="true" keyProperty="b_idx">
+			insert into board values(
+							 null
+							,#{b_subject}
+							,#{b_content}
+							,#{b_ip}
+							,now()
+							,0
+							,#{mem_idx}
+							,#{mem_name}
+							,0
+							,0
+							,0
+							,'y'
+						)
+	</insert>
+	<update id="update_ref" parameterType="BoardVo">
+		update board set b_ref=#{b_idx} where b_idx=#{b_idx}	
+	</update>
+	
+	<!-- 게시물 상세페이지에서 조회수 증가 -->
+	<update id="update_readhit" parameterType="int" >
+		update board set b_readhit=b_readhit+1 where b_idx=#{b_idx}
+	</update>
+	
+	<!-- 답글이 들어갈 자리를 만들어준다. -->
+	<update id="update_step" parameterType="BoardVo">
+		update board set b_step = b_step+1 where b_ref=#{b_ref} and b_step > #{b_step}
+	</update>
+	
+	<!-- 답글쓰기 -->
+	<insert id="reply" parameterType="BoardVo" 	>
+			insert into board values(
+							 null
+							,#{b_subject}
+							,#{b_content}
+							,#{b_ip}
+							,now()
+							,0
+							,#{mem_idx}
+							,#{mem_name}
+							,#{b_ref}
+							,#{b_step}
+							,#{b_depth}
+							,'y'
+						)
+	</insert>
+	
+	
+	<!-- 삭제처리시 사용유무 변경 'y' => 'n' -->
+	<update id="delete_update_b_use" parameterType="int">
+		update board set b_use='n' where b_idx=#{b_idx}
+	</update>
+	
+	<!-- 수정처리하기 -->
+	<update id="update_subject_content" parameterType="BoardVo">
+		update board set b_subject=#{b_subject}, b_content=#{b_content} where b_idx=#{b_idx}
+	</update>
+	
+	<insert id="test_insert" parameterType="map">
+		insert into comment_tb values(
+										null
+									   ,'댓글#{i}'
+									   ,#{i}
+									   ,now()
+									   ,7
+									   ,#{mem_idx}
+									   ,#{mem_id}
+		)
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

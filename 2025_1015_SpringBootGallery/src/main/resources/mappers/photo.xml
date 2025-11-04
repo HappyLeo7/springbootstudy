@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liw.gallery.dao.PhotoDao">
+
+	<!-- 전체조회 -->
+	<select id="selectlist" resultType="PhotoVo">
+		select * from photo order by p_idx desc
+	</select>
+	
+	<select id="selectRowTotal" resultType="int">
+		select ifnull(count(*),0) from photo
+	</select>
+	
+	
+	<!-- 페이지 처리 sql 조회 -->
+	<select id="selectListPage" parameterType="Map" resultType="PhotoVo">
+				select * 
+					from
+						(
+						select
+						rank() over(order by p_idx) no
+						,p.*
+						from(select * from photo order by p_idx desc)p
+						) pp
+				where no between #{start} and #{end} 
+	</select>
+	
+
+	<!-- p_idx에 대한 PhotoVo 1개 얻어오기 -->
+	<select id="selecOne" resultType="PhotoVo" parameterType="int">
+		select * from photo where p_idx=#{p_idx}
+	</select>
+	
+	<!-- insert -->
+	<insert id="insert" parameterType="PhotoVo">
+		insert into photo values(null
+						   ,#{p_subject}
+						   ,#{p_content}
+						   ,#{p_filename}
+						   ,#{p_ip}
+						   ,now()
+						   ,now()
+						   ,#{mem_idx}
+						   )
+	</insert>
+	
+	<!-- 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from photo where p_idx=#{p_idx}
+	</delete>
+	
+	<!-- 파일명만 수정 -->
+	<update id="update_filename" parameterType="PhotoVo">
+	update photo set p_filename=#{p_filename}
+					,p_lastmodifydate=now()
+		where p_idx=#{p_idx}
+		
+	</update>
+	
+	<!-- 내용수정 -->
+	<update id="update" parameterType="PhotoVo">
+		update photo set p_subject=#{p_subject}
+						,p_content=#{p_content}
+						,p_ip=#{p_ip}
+						,p_lastmodifydate=now()
+						where p_idx=#{p_idx}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

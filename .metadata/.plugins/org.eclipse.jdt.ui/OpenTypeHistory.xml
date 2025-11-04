@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<typeInfoHistroy/>
+<typeInfoHistroy>
+    <typeInfo handle="=2025_1023_SpringBoot_AOP/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.example.aop.service{TestService.java[TestService" modifiers="513" timestamp="1761183962746"/>
+    <typeInfo handle="=2025_1023_SpringBoot_Transaction/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.example.tx.dao{ProductOutDao.java[ProductOutDao" modifiers="513" timestamp="1761271762859"/>
+    <typeInfo handle="=2025_1023_SpringBoot_Transaction/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.example.tx.service{ProductService.java[ProductService" modifiers="513" timestamp="1761803959541"/>
+</typeInfoHistroy>

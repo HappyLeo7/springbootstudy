@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.tx.dao.ProductRemainDao">
+	<!-- 전체조회 -->
+	<select id="selectList" resultType="ProductVo">
+		select * from product_remain order by idx
+	</select>
+	
+	<!-- idx를 이용해서 1개 조회 -->
+	<select id="selectOne" parameterType="int" resultType="ProductVo">
+		select * from product_remain
+			where idx=#{idx}
+	</select>
+	
+	<!-- name을 이용해서 1개 조회 -->
+	<select id="selectOneFromName" parameterType="String" resultType="ProductVo">
+		select * from product_remain
+			where name=#{name}	
+	</select>
+	
+	<!-- 추가 -->
+	<insert id="insert" parameterType="ProductVo">
+		insert into product_remain(name,cnt,regdate) values(
+										#{name}
+									   ,#{cnt}
+									   ,now()
+								       )
+	</insert>
+
+	<!-- 수정 -->
+	<update id="update" parameterType="ProductVo">
+		update product_remain set 
+							  name=#{name}
+							 ,cnt=#{cnt}
+							 ,regdate=now()
+		where idx = #{idx}
+	</update>	
+	
+	
+	<!-- 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from product_remain where idx=#{idx}
+	</delete>
+	
+</mapper>
