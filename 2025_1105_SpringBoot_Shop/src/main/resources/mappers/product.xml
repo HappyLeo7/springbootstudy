@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shop.dao.ProductDao">
+	<!-- 카테고리별 조회 -->
+	<select id="selectList" resultType="ProductVo" parameterType="int">
+		select *from product
+		<if test="cate_idx!=0">
+		where cate_idx = #{cate_idx}
+		</if>
+	</select> 
+	
+	<select id="selectOne" parameterType="int" resultType="ProductVo">
+		select * from product where idx=#{p_idx}
+	</select>
+	
+	<insert id="insert" parameterType="ProductVo">
+	insert into product values(
+						null
+						,#{p_model_num}
+						,#{p_name}
+						,#{p_company}
+						,#{p_price}
+						,#{p_saleprice}
+						,#{p_image_s}
+						,#{p_image_l}
+						,#{p_content}
+						,now()
+						,#{cate_idx}
+						);
+	
+	</insert>
+		
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

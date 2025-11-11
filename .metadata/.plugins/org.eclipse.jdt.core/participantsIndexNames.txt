@@ -13,6 +13,10 @@ D:\Work\SpingBootStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\362
 \2025_1014_Hello\src\main\java
 D:\Work\SpingBootStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1402875091.index
 \2025_1015_SpringBootVisit\src\main\java
+D:\Work\SpingBootStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\249194908.index
+\2025_1105_SpringBoot_Shop\src\main\java
+D:\Work\SpingBootStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3992257047.index
+\2025_1105_SpringBoot_Shop\src\main\java
 D:\Work\SpingBootStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2899327959.index
 \2025_1023_SpringBoot_Interceptor\src\main\java
 D:\Work\SpingBootStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3056847777.index
@@ -25,3 +29,7 @@ D:\Work\SpingBootStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\186
 \2025_1031_SpringBootVisit_Restful\src\main\java
 D:\Work\SpingBootStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\447558472.index
 \2025_1015_SpringBootGallery\src\main\java
+D:\Work\SpingBootStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3549309241.index
+\2025_1105_SpringBoot_Shop\src\main\java
+D:\Work\SpingBootStudy\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3857014415.index
+\2025_1105_SpringBoot_Shop\src\main\java

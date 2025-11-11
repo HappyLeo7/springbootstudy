@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shop.dao.CartDao">
+	
+	<!-- 회원별 조회 -->
+	<select id="selectList" parameterType="int" resultType="CartVo">
+		select * from cart_view where mem_idx=#{mem_idx}
+	</select>
+
+	<!-- 결제예정목록 추출 -->
+	<select id="selectPaymentList" parameterType="Map" resultType="CartVo">
+		select * from cart_view where c_idx in
+		<foreach item="c_idx" collection="c_idx_array" open="(" close=")" separator=",">
+			#{c_idx}
+		</foreach>
+	</select>
+	
+	<!-- 결제총액 -->
+	<select id="selectPaymentTotalAmount" parameterType="Map" resultType="int">
+		select ifnull(sum(amount)) from cart_view	
+	</select>
+	
+	
+	<!-- 회원별 총합계 -->
+	<select id="selectAmountTotal" parameterType="int" resultType="int">
+		select ifnull(sum(amount),0) from cart_view where mem_idx=#{mem_idx}
+	</select>
+	
+	<!-- 추가 -->
+	<insert id="insert" parameterType="CartVo">
+		INSERT INTO cart VALUES(null,1,#{idx},#{mem_idx})
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="update" parameterType="CartVo">
+		UPDATE cart SET c_cnt=#{c_cnt}
+		WHERE c_idx=#{c_idx}	
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from cart where c_idx=#{c_idx}
+	</delete>
+	
+	<!-- 장바구니에 이미 등록되었는지 -->
+	<select id="selectOneExist" parameterType="CartVo" resultType="CartVo">
+		select *from cart_view where idx = #{idx} and mem_idx=#{mem_idx}
+	</select>
+	
+	<!-- 결제완료된 항목 삭제 -->
+	<delete id="deletePaymentComplete" parameterType="Map">
+		delete from cart where
+<!-- 		delete from cart where c_idx=1 or c_idx=2 or c_idx=3 -->
+		<foreach collection="c_idx_array" item="c_idx" separator="or">
+		c_idx=#{c_idx}
+		</foreach>
+	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

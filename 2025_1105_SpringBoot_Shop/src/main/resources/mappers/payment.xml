@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.shop.dao.PaymentDao">
+	
+	<!-- 회원별 결재목록 -->
+	<resultMap type="PaymentResultVo" id="payment_result_map">
+		<result property="pay_order_num" column="pay_order_num"/>
+		<!-- pay_order_num별 합계 -->
+		<association property="pay_amount_sum"
+						column="pay_order_num=pay_order_num"
+						select="selectAmountSum"/>
+		<!-- pay_order_num별 결재목록 -->
+		<collection property="payment_list"
+					column="pay_order_num=pay_order_num"
+					select="selectOrderNumPaymentList"
+		/>
+	</resultMap>
+	
+	<!-- 주문번호별 합계 -->
+	<select id="selectAmountSum" resultType="int">
+		select ifnull(sum(pay_cnt*pay_price),0) from payment where pay_order_num=#{pay_order_num}
+	</select>
+	<!-- 주문번호별 목록 -->
+	<select id="selectOrderNumPaymentList" resultType="PaymentVo">
+		select * from payment where pay_order_num=#{pay_order_num}
+	</select>
+	<select id="selectList" parameterType="int"  resultMap="payment_result_map">
+		select distinct pay_order_num from payment where mem_idx=#{mem_idx}
+		order by pay_order_num desc
+	</select>
+	
+	<!-- 주문 번호 생성 -->
+	<select id="selectOrderNum" resultType="int">
+		select ifnull(max(pay_order_num),0)+1 from payment
+	</select>
+	
+	<!-- 결제등록 -->
+	<insert id="insert" parameterType="PaymentVo">
+		insert into payment values(
+			null 
+	,#{pay_order_num}			
+	,#{pay_model_num}			
+	,#{pay_name}			
+	,#{pay_cnt}		
+	,#{pay_price}			
+	,now()		
+	,#{mem_idx}		
+	,#{p_idx}			
+		
+		)
+	</insert>
+</mapper>
+
+
+
+
