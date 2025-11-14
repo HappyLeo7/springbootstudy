@@ -25,6 +25,5 @@ public class SawonEntity {
 	@Column(nullable = true)
 	Integer samgr;
 	int sapay ;
-	int bonus;
 
 }

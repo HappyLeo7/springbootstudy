@@ -1,0 +1,30 @@
+## Rest규칙
+1. 명사형 작성(동사형 X)
+
+2. 경로상 '/'로 구분
+
+3. 요청 끝에는 '/' 붙이지 않는다.
+
+4. 소문자로 작성할 것을 권고함
+
+5. 2개 이상의 단어 작성시 '-'(하이폰)을 사용해라
+
+## 1.전체조회
+method : GET
+URI      :  /rest/visits
+
+## 2.1건조회
+method : GET
+URI      :  /rest/visit/{idx}      -> /rest/visit/1
+
+## 3.추가
+method : POST
+URI      :  /rest/visit
+
+## 4.수정
+method : PUT  or  PATCH
+URI      :  /rest/visit
+
+## 5.삭제
+method : DELETE
+URI      :  /rest/visit/{idx}    ->  /rest/visit/1
